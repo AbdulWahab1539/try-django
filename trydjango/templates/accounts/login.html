@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if not request.user.is_authenticated %}
+<div>
+    <form method="POST" action=''>
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% comment %} {% if error %}
+            <p style="color:red">{{error}}</p>
+        {% endif %}
+        <input type='text' name='username' label='username' placeholder='Username'/>
+        <input type='password' name='password' label='password' placeholder='password'/> {% endcomment %}
+        <input type='submit' value='Login'/>
+    </form>
+    <p>Don't have an account? Please <a href='/register/'>Register</a></p>
+</div>
+{% else %}
+<p>You are already logged in. Do you want to logout? <a href="/logout/">logout</a>?</p>
+{% endif %}
+{% endblock content %}
