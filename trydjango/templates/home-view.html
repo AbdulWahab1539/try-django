@@ -3,11 +3,17 @@
 {% block content %}
 <h1>Title is Here: {{title}} with id: {{id}} and content: {{content}}</h1>
 
+<!-- <a href='{% url "article-create" %}'>Create Article</a> -->
 <ul>
-    {%  for x in object_list %}
-        {%  if x.title %}
-            <li><a href="/articles/{{ x.id }}/">{{ x.title }} - {{x.content}}</a></li>
-        {% endif %}
-    {%  endfor %}
+    {% for x in object_list %}
+    {% if x.title %}
+
+    {% comment %}
+    <a href='{% url "article-detail" slug=x.slug %}'>{{ x.title }} - {{x.content}}</a>
+    {% endcomment %}
+
+    <li><a href="{{ x.get_absolute_url }}/">{{ x.title }} - {{x.content}}</a></li>
+    {% endif %}
+    {% endfor %}
 </ul>
 {% endblock content %}
