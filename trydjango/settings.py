@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get(
-    'DJANGO_SECRET_KEY', )
+    'DJANGO_SECRET_KEY', 'django-insecure-edffja+3242e*-6p$-^(hd98jzzt(k(81d-pbh)u_e6*9p(*2z')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'articles',
     'accounts',
     'recipes',
+    'django_htmx',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_htmx.middleware.HtmxMiddleware'
 ]
 
 ROOT_URLCONF = 'trydjango.urls'

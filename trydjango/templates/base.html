@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
     
-<head></head>
+<head>
+    <script src="https://unpkg.com/htmx.org@1.8.0"></script>
+</head>
 <body>
     <h1>Before Blocks</h1>
     <form>
@@ -10,8 +12,6 @@
         <input type='submit' value='Search'/>
     </form>
     {% block content %}
-    {% comment %} <h1>Between Blocks</h1> {% endcomment %}
-    {% endblock content%}
-    {% comment %} <h1>After Blocks</h1> {% endcomment %}
+    {% endblock content %}
 </body>
 </html>

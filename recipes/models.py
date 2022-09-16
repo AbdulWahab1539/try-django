@@ -2,7 +2,9 @@ from django.db import models
 from django.conf import settings
 from .validators import validate_unit_of_measure
 from .utils import number_str_to_float
-from django.core.urlresolvers import reverse
+from django.urls import reverse
+import pint
+
 
 class Recipe(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -16,10 +18,15 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def get_absolute_url(self):
-        return '/pantry/recipes/'
-        # return reverse('', kwargs={'pk': self.pk})
+        return reverse('recipes:detail', kwargs={'id': self.id})
+
+    def get_edit_url(self):
+        return reverse('recipes:update', kwargs={'id': self.id})
+
+    def get_ingredients_child(self):
+        return self.recipeingredients_set.all()
 
 
 class RecipeIngredients(models.Model):
@@ -38,7 +45,7 @@ class RecipeIngredients(models.Model):
     def get_absolute_url(self):
         self.recipe.get_abolute_url()
         # return reverse('', kwargs={'pk': self.pk})
-    
+
     def convert_to_system(self, system='mks'):
         if self.quantity_as_float is None:
             return None
@@ -46,7 +53,7 @@ class RecipeIngredients(models.Model):
         measurement = self.quantity_as_float * ureg(self.unit)
         print(measurement)
         return measurement.to_base_units()
-    # .to('kilogram')    # 
+    # .to('kilogram')    #
 
     def as_mks(self):
         measurement = self.convert_to_system(system='mks')
