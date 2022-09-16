@@ -4,7 +4,9 @@ from django.db.models.signals import pre_save, post_save
 from .utils import slugify_instance_title
 from django.urls import reverse
 from django.db.models import Q
+from django.conf import settings
 
+User = settings.AUTH_USER_MODEL
 
 class ArticleQuerySet(models.QuerySet):
     def search(self, query=None):
@@ -32,6 +34,8 @@ class ArticleManager(models.Manager):
 
 
 class Article(models.Model):
+    user = models.ForeignKey(User, blank=True,
+                             null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=122)
     slug = models.SlugField(unique=True, blank=True, null=True)
     content = models.TextField()

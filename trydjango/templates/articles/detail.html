@@ -3,5 +3,6 @@
 {% block content %}
 
 <h4>Title: {{ object.title }}</h4>
+<p>Author {{ object.user.username }}</p>
 <p> {{ object.content }}</p>
 {% endblock content %}
