@@ -1,17 +1,36 @@
 <!DOCTYPE html>
 <html>
-    
+
 <head>
     <script src="https://unpkg.com/htmx.org@1.8.0"></script>
+    <style>
+        .htmx-indicator {
+            display: none;
+        }
+
+        .htmx-request .htmx-indicator {
+            display: inline;
+        }
+
+        .htmx-inverted-indicator {
+            display: inline;
+        }
+
+        .htmx-request .htmx-inverted-indicator {
+            display: none;
+        }
+    </style>
 </head>
+
 <body>
     <h1>Before Blocks</h1>
     <form>
         <!-- {% csrf_token %} -->
-        <input type='text' name='q'/>
-        <input type='submit' value='Search'/>
+        <input type='text' name='q' />
+        <input type='submit' value='Search' />
     </form>
     {% block content %}
     {% endblock content %}
 </body>
+
 </html>
