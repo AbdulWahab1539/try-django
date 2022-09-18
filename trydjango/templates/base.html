@@ -24,11 +24,7 @@
 
 <body>
     <h1>Before Blocks</h1>
-    <form>
-        <!-- {% csrf_token %} -->
-        <input type='text' name='q' />
-        <input type='submit' value='Search' />
-    </form>
+    {% include 'search/search-form.html' %}
     {% block content %}
     {% endblock content %}
 </body>
