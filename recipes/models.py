@@ -5,6 +5,8 @@ from .utils import number_str_to_float
 from django.urls import reverse
 import pint
 from django.db.models import Q
+import pathlib
+import uuid
 
 
 class RecipeQuerySet(models.QuerySet):
@@ -13,10 +15,10 @@ class RecipeQuerySet(models.QuerySet):
         if query is None or query == "":
             return self.none()
         lookups = (
-            Q(name__icontains=query) | 
+            Q(name__icontains=query) |
             Q(description__icontains=query) |
             Q(directions__icontains=query)
-            )
+        )
         # title__icontains=query
         return self.filter(lookups)
 
@@ -41,7 +43,7 @@ class Recipe(models.Model):
     @property
     def title(self):
         return self.name
-    
+
     def __str__(self):
         return self.name
 
@@ -53,6 +55,9 @@ class Recipe(models.Model):
 
     def get_edit_url(self):
         return reverse('recipes:update', kwargs={'id': self.id})
+
+    def get_delete_url(self):
+        return reverse('recipes:delete', kwargs={'id': self.id})
 
     def get_ingredients_child(self):
         return self.recipeingredients_set.all()
@@ -77,6 +82,9 @@ class RecipeIngredients(models.Model):
 
     def get_hx_edit_url(self):
         return reverse('recipes:hx-ingredient-detail', kwargs={'parent_id': self.recipe.id, 'id': self.id})
+
+    def get_delete_url(self):
+        return reverse('recipes:ingredient-delete', kwargs={'parent_id': self.recipe.id, 'id': self.id})
 
     def convert_to_system(self, system='mks'):
         if self.quantity_as_float is None:
@@ -109,4 +117,13 @@ class RecipeIngredients(models.Model):
     def __str__(self):
         return self.name
 
-# class RecipeImage(models.Model):
+
+def recipe_ingredient_image_upload_handler(instance, filename):
+    fpath = pathlib.Path(filename)
+    new_fname = str(uuid.uuid1())
+    return f"recipes/ingredient/{new_fname}{fpath.suffix}"
+
+
+class RecipeIngredientImage(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    image = models.FileField(upload_to=recipe_ingredient_image_upload_handler)

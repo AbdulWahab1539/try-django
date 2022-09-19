@@ -1,14 +1,15 @@
 from django.contrib import admin
 
-from .models import Recipe, RecipeIngredients
+from .models import Recipe, RecipeIngredients, RecipeIngredientImage
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
 
+
 # admin.site.unregister(User)
 
-# # admin.site.register(RecipeIngredients)
+admin.site.register(RecipeIngredientImage)
 
 
 # class RecipeInline(admin.StackedInline):

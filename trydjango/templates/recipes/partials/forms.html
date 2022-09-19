@@ -38,5 +38,6 @@
         <div class="htmx-indicator">Loading...</div>
         <input class="htmx-inverted-indicator" type="submit" value="Save" />
         {% if message %}<p>{{ message }}</p>{% endif %}
+        <a href="{{ object.get_delete_url }}">Delete</a>
     </form>
 </div>
