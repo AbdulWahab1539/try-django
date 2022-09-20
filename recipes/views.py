@@ -87,7 +87,7 @@ def recipe_detail_hx_view(request, id=None):
     except:
         obj = None
     if obj is None:
-        return HttpResoponse('Not Found')
+        return HttpResponse('Not Found')
     # obj = get_object_or_404(Recipe, id=id, user=request.user)
     context = {
         'object': obj

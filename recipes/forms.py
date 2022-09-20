@@ -4,7 +4,7 @@ from django import forms
 from .models import Recipe, RecipeIngredients, RecipeIngredientImage
 
 
-class RecipeIngredientImageForm(models.ModelForm):
+class RecipeIngredientImageForm(forms.ModelForm):
     class Meta:
         models = RecipeIngredientImage
         fields = ['image']

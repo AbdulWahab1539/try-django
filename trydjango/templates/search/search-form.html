@@ -1,7 +1,7 @@
 <div>
-<form action="/search/" method="GET">
+<form action="/search/" method="GET" class="d-flex" role="search">
     <!-- {% csrf_token %} -->
-    <select name="type" id="search-type">
+    <select class='form-control' name="type" id="search-type">
 
         {% if request.GET.type == 'article' %}
         <option value="article" selected>Articles</option>
@@ -12,15 +12,15 @@
         {% if request.GET.type == 'recipe' %}
         <option value="recipe" selected>Recipes</option>
         {% else %}
-        <option value="recipe">Recipes</option>
+        <option value="recipe" selected>Recipes</option>
         {% endif %}
 
     </select>
     
-    <input type='text' id='search-query' name='q' value='{{ request.GET.q }}' hx-get='/search/' hx-trigger='keypup change delay:200ms' hx-include='#search-type' hx-target='#typeahead-results'/>
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" type='text' id='search-query' name='q' value='{{ request.GET.q }}' hx-get='/search/' hx-trigger='keypup change delay:200ms' hx-include='#search-type' hx-target='#typeahead-results'/>
 
    
-    <input type='submit' value='Search' />
+    <input class="btn btn-outline-success" type="submit" value='Search' />
 </form>
 <div id="typeahead-results"></div>
 </div>
